@@ -14,16 +14,227 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      board_members: {
+        Row: {
+          board_id: string
+          created_at: string
+          role: Database["public"]["Enums"]["board_role"]
+          user_id: string
+        }
+        Insert: {
+          board_id: string
+          created_at?: string
+          role?: Database["public"]["Enums"]["board_role"]
+          user_id: string
+        }
+        Update: {
+          board_id?: string
+          created_at?: string
+          role?: Database["public"]["Enums"]["board_role"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "board_members_board_id_fkey"
+            columns: ["board_id"]
+            isOneToOne: false
+            referencedRelation: "boards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      boards: {
+        Row: {
+          created_at: string
+          id: string
+          is_public: boolean
+          owner_id: string
+          template: string | null
+          thumbnail_url: string | null
+          title: string
+          updated_at: string
+          yjs_state: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_public?: boolean
+          owner_id: string
+          template?: string | null
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string
+          yjs_state?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_public?: boolean
+          owner_id?: string
+          template?: string | null
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string
+          yjs_state?: string | null
+        }
+        Relationships: []
+      }
+      chat_messages: {
+        Row: {
+          board_id: string
+          body: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          board_id: string
+          body: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          board_id?: string
+          body?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_messages_board_id_fkey"
+            columns: ["board_id"]
+            isOneToOne: false
+            referencedRelation: "boards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      comments: {
+        Row: {
+          board_id: string
+          body: string
+          created_at: string
+          id: string
+          parent_id: string | null
+          resolved: boolean
+          user_id: string
+          x: number
+          y: number
+        }
+        Insert: {
+          board_id: string
+          body: string
+          created_at?: string
+          id?: string
+          parent_id?: string | null
+          resolved?: boolean
+          user_id: string
+          x?: number
+          y?: number
+        }
+        Update: {
+          board_id?: string
+          body?: string
+          created_at?: string
+          id?: string
+          parent_id?: string | null
+          resolved?: boolean
+          user_id?: string
+          x?: number
+          y?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comments_board_id_fkey"
+            columns: ["board_id"]
+            isOneToOne: false
+            referencedRelation: "boards"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "comments_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "comments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          color: string
+          created_at: string
+          display_name: string
+          id: string
+        }
+        Insert: {
+          color?: string
+          created_at?: string
+          display_name: string
+          id: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          display_name?: string
+          id?: string
+        }
+        Relationships: []
+      }
+      snapshots: {
+        Row: {
+          board_id: string
+          created_at: string
+          id: string
+          storage_path: string
+          user_id: string
+        }
+        Insert: {
+          board_id: string
+          created_at?: string
+          id?: string
+          storage_path: string
+          user_id: string
+        }
+        Update: {
+          board_id?: string
+          created_at?: string
+          id?: string
+          storage_path?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "snapshots_board_id_fkey"
+            columns: ["board_id"]
+            isOneToOne: false
+            referencedRelation: "boards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      can_edit_board: {
+        Args: { _board: string; _user: string }
+        Returns: boolean
+      }
+      can_view_board: {
+        Args: { _board: string; _user: string }
+        Returns: boolean
+      }
+      get_board_role: {
+        Args: { _board: string; _user: string }
+        Returns: Database["public"]["Enums"]["board_role"]
+      }
     }
     Enums: {
-      [_ in never]: never
+      board_role: "owner" | "editor" | "viewer"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +361,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      board_role: ["owner", "editor", "viewer"],
+    },
   },
 } as const
