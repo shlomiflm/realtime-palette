@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
-import { MousePointer2, Users, Zap, Sparkles } from "lucide-react";
+import { MousePointer2, Users, Zap, MessageSquarePin, LayoutTemplate, Camera } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -55,18 +55,20 @@ function Index() {
 
         <section className="px-6 py-20 mx-auto max-w-6xl grid md:grid-cols-3 gap-6">
           {[
-            { icon: MousePointer2, t: "Live cursors", d: "See teammates move and edit in real time, with names and colors." },
-            { icon: Users, t: "Roles & sharing", d: "Owner, editor, viewer roles. Generate a public read-only share link." },
-            { icon: Zap, t: "CRDT-powered", d: "Yjs keeps everything in sync — even when the network is messy." },
-            { icon: Sparkles, t: "Pinned comments", d: "Pin discussions to coordinates on the canvas." },
-            { icon: Sparkles, t: "Templates", d: "Start from kanban, mind map, retro, or a blank page." },
-            { icon: Sparkles, t: "Snapshots", d: "Export the board to PNG and keep a history." },
-          ].map(({ icon: Icon, t, d }) => (
-            <div key={t} className="rounded-2xl border border-border p-6 bg-card hover:shadow-[var(--shadow-elegant)] transition-shadow">
+            { icon: MousePointer2, t: "Live cursors", d: "See teammates move and edit in real time, with names and colors.", slug: "live-cursors" },
+            { icon: Users, t: "Roles & sharing", d: "Owner, editor, viewer roles. Generate a public read-only share link.", slug: "sharing" },
+            { icon: Zap, t: "CRDT-powered", d: "Yjs keeps everything in sync — even when the network is messy.", slug: "crdt" },
+            { icon: MessageSquarePin, t: "Pinned comments", d: "Pin discussions to coordinates on the canvas.", slug: "comments" },
+            { icon: LayoutTemplate, t: "Templates", d: "Start from kanban, mind map, retro, or a blank page.", slug: "templates" },
+            { icon: Camera, t: "Snapshots", d: "Export the board to PNG and keep a history.", slug: "snapshots" },
+          ].map(({ icon: Icon, t, d, slug }) => (
+            <Link key={t} to="/features/$slug" params={{ slug }}
+              className="text-left rounded-2xl border border-border p-6 bg-card hover:shadow-[var(--shadow-elegant)] hover:border-primary/40 transition-all">
               <Icon className="size-6 text-primary" />
               <h3 className="mt-4 font-semibold">{t}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{d}</p>
-            </div>
+              <span className="mt-4 inline-block text-xs font-medium text-primary">Try it →</span>
+            </Link>
           ))}
         </section>
       </main>
