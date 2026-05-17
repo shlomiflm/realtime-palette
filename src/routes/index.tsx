@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
-import { MousePointer2, Users, Zap, MessageSquarePin, LayoutTemplate, Camera } from "lucide-react";
+import { MousePointer2, Users, Zap, MessageSquare, LayoutTemplate, Camera } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -58,7 +58,7 @@ function Index() {
             { icon: MousePointer2, t: "Live cursors", d: "See teammates move and edit in real time, with names and colors.", slug: "live-cursors" },
             { icon: Users, t: "Roles & sharing", d: "Owner, editor, viewer roles. Generate a public read-only share link.", slug: "sharing" },
             { icon: Zap, t: "CRDT-powered", d: "Yjs keeps everything in sync — even when the network is messy.", slug: "crdt" },
-            { icon: MessageSquarePin, t: "Pinned comments", d: "Pin discussions to coordinates on the canvas.", slug: "comments" },
+            { icon: MessageSquare, t: "Pinned comments", d: "Pin discussions to coordinates on the canvas.", slug: "comments" },
             { icon: LayoutTemplate, t: "Templates", d: "Start from kanban, mind map, retro, or a blank page.", slug: "templates" },
             { icon: Camera, t: "Snapshots", d: "Export the board to PNG and keep a history.", slug: "snapshots" },
           ].map(({ icon: Icon, t, d, slug }) => (

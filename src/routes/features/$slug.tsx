@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { MousePointer2, Users, Zap, MessageSquarePin, LayoutTemplate, Camera, ArrowLeft } from "lucide-react";
+import { MousePointer2, Users, Zap, MessageSquare, LayoutTemplate, Camera, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import { templateShapes } from "@/lib/board/templates";
 
@@ -46,7 +46,7 @@ const FEATURES: Record<string, FeatureDef> = {
     title: "Pinned comments",
     tagline: "Talk where it matters.",
     body: "Pick the comment tool and click any spot on the canvas to drop a pin at that exact coordinate and type a message. Each pin opens a card with the author and text; authors can resolve their own pins and everything updates live.",
-    icon: MessageSquarePin,
+    icon: MessageSquare,
     cta: "Open a board with the comment tool armed",
     action: "open-comments",
   },
